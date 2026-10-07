@@ -51,3 +51,6 @@ Gate: starter clean install and example clean verify, 36 + 3 tests passed, zero 
 
 ## T5: Official request semantics, complete
 Upstream serve.py rejects null state (400) and null score levels (422). LayaRequest now rejects both before HTTP. LAYA-1 assertions src/test/java/io/github/kelsonthony/laya/QuestionTests.java:26 and :31 assert exact exceptions; unchanged factory tests prove only shallow snapshot preservation, not valid HTTP evaluation. Gate: starter clean install and example clean verify, 36 + 3 tests passed, zero failures/skips. README null-description guidance narrowed to choice/noul.
+
+## T6: Supported GitHub build actions, complete
+First remote run 37679661739 passed all nine Java/Boot combinations. Its annotations reported deprecated Node20-based actions. Replaced checkout/setup-java with verified current official releases v7.0.1/v6.0.1. Gate: initial matrix PASS and official action manifest inspection; final remote matrix will verify this configuration.
