@@ -76,4 +76,4 @@ python3 scripts/smoke.py
 
 Start the official Laya server separately before running the smoke. The example accepts `POST /triage` with `{"message":"Fui cobrado duas vezes e preciso de um reembolso."}` and returns department, confidence, urgency, severity and model. Empty/missing messages return 400. Maven tests use deterministic HTTP mocks; the optional smoke runs actual inference. CI covers Java 17/21/25 and Boot 4.0.0/4.0.8/4.1.1.
 
-Read the [Portuguese README](README.md) for the full API, attribution, exact upstream commits and configuration guidance. See [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE](LICENSE), the [official Laya Java project](https://github.com/NandhaKishorM/laya/tree/main/laya-java) and the [official model](https://huggingface.co/convaiinnovations/laya).
+Read the [English README](README.md) or [Portuguese README](README.pt-BR.md) for the full API, attribution, exact upstream commits and configuration guidance. See [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE](LICENSE), the [official Laya Java project](https://github.com/NandhaKishorM/laya/tree/main/laya-java) and the [official model](https://huggingface.co/convaiinnovations/laya).

@@ -54,3 +54,6 @@ Upstream serve.py rejects null state (400) and null score levels (422). LayaRequ
 
 ## T6: Supported GitHub build actions, complete
 First remote run 37679661739 passed all nine Java/Boot combinations. Its annotations reported deprecated Node20-based actions. Replaced checkout/setup-java with verified current official releases v7.0.1/v6.0.1. Gate: initial matrix PASS and official action manifest inspection; final remote matrix will verify this configuration.
+
+## T7: English primary README, complete
+User requested README.md in English. Translated the full guide, retained Portuguese as README.pt-BR.md, fixed language navigation and updated requirement LAYA-6. Gate: primary README prose review, relative Markdown links validated, git diff --check. Production code unchanged.

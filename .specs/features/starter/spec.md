@@ -26,7 +26,7 @@ Acceptance Criteria:
 3. When a servlet application starts, the starter SHALL provide one LayaClient without HTTP calls, use localhost:8000 and omit model and Authorization by default. A configured key SHALL produce Bearer authentication; explicit blank key SHALL disable it. Explicit key SHALL override LAYA_API_KEY. Invalid URLs or blank model SHALL fail startup.
 4. When laya.enabled=false, a custom LayaClient exists, or the context is not servlet, the starter SHALL back off. The starter SHALL retain the Boot builder's interceptors and message converters.
 5. When a user builds the example and posts a ticket to /triage, the example SHALL return department, confidence, urgency, severity and actual model from Laya. A documented local smoke SHALL distinguish official-model inference from mocked HTTP tests.
-6. The repository SHALL contain a Portuguese README, English quickstart, Apache-2.0 license, contribution guide, Maven wrapper and GitHub CI, credit both upstream projects, and clearly state local SNAPSHOT installation rather than Maven Central availability.
+6. The repository SHALL contain an English primary README, Portuguese translation, English quickstart, Apache-2.0 license, contribution guide, Maven wrapper and GitHub CI, credit both upstream projects, and clearly state local SNAPSHOT installation rather than Maven Central availability.
 
 ## Requirement Traceability
 | ID | Requirement | Status |

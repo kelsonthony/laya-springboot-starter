@@ -3,31 +3,31 @@
 [![Build](https://github.com/kelsonthony/laya-springboot-starter/actions/workflows/build.yml/badge.svg)](https://github.com/kelsonthony/laya-springboot-starter/actions/workflows/build.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
-Integre decisões tipadas do **[Laya](https://github.com/NandhaKishorM/laya)** a aplicações Spring MVC. Adicione a dependência, execute seu servidor Laya e injete `LayaClient`.
+Bring typed decisions from **[Laya](https://github.com/NandhaKishorM/laya)** to Spring MVC applications. Add the dependency, run your Laya server, and inject `LayaClient`.
 
 **Spring Boot 4 · Java 17+ · Spring MVC · RestClient · Jackson 3**
 
-[English quickstart](README.en.md) · [Exemplo de triagem](examples/support-triage) · [Como contribuir](CONTRIBUTING.md)
+[Português (Brasil)](README.pt-BR.md) · [Support triage example](examples/support-triage) · [Contributing](CONTRIBUTING.md)
 
-Projeto independente da comunidade, inspirado no [Jev Spring Boot Starter de Dan Vega](https://github.com/danvega/jev-spring-boot-starter). A implementação deste repositório é própria. Não é um SDK oficial nem tem afiliação com os autores do Laya ou do Jev.
+An independent community project inspired by [Dan Vega's Jev Spring Boot Starter](https://github.com/danvega/jev-spring-boot-starter). This repository contains an original implementation. It is not an official SDK and is not affiliated with the authors of Laya or Jev.
 
-## O que ele faz
+## What it does
 
-O [servidor HTTP oficial do Laya](https://github.com/NandhaKishorM/laya#self-hosting-http-server-jev-compatible) oferece `POST /v1/systemone`, compatível com o protocolo de decisões do Jev. Este starter conecta o Spring Boot a esse servidor. O modelo roda no processo Python do Laya; o starter Java faz chamadas HTTP síncronas e não baixa nem carrega pesos na JVM.
+The [official Laya HTTP server](https://github.com/NandhaKishorM/laya#self-hosting-http-server-jev-compatible) exposes `POST /v1/systemone`, compatible with Jev's decision protocol. This starter connects Spring Boot to that server. Inference runs in Laya's Python process; the Java starter makes synchronous HTTP calls and does not download or load model weights into the JVM.
 
-| Pergunta | Uso | Resultado |
+| Question | Purpose | Result |
 | --- | --- | --- |
-| `Question.choice(...)` | Escolher uma opção | Rótulo, probabilidades e confiança |
-| `Question.score(...)` | Avaliar níveis ordenados | Pontuação ponderada, legenda e probabilidades |
-| `Question.noul(...)` | Avaliar uma afirmação sim/não | Probabilidade de sim, de 0 a 1 |
+| `Question.choice(...)` | Select a named option | Label, probabilities, and confidence |
+| `Question.score(...)` | Evaluate ordered levels | Weighted score, legend, and probabilities |
+| `Question.noul(...)` | Evaluate a yes/no statement | Probability of yes, between 0 and 1 |
 
-Em uma escala com três níveis, `score` fica entre 0 e 2 e pode ser fracionário. `confidence` em `choice`/`score` representa a medida de entropia do Laya; `answerConfidence()` expõe `answer_confidence`, quando disponível. Sua aplicação escolhe os limiares e valida a qualidade do modelo com seus dados.
+A three-level `score` ranges from 0 to 2 and can be fractional. For `choice` and `score`, `confidence` is Laya's entropy-based measure; `answerConfidence()` exposes `answer_confidence` when available. Your application chooses its thresholds and evaluates model quality on its own data.
 
-## Começar
+## Getting started
 
-### 1. Instalar o starter localmente
+### 1. Install the starter locally
 
-A versão `0.1.0-SNAPSHOT` **ainda não está publicada no Maven Central**. Instale no seu repositório Maven local:
+Version `0.1.0-SNAPSHOT` is **not yet published to Maven Central**. Install it into your local Maven repository:
 
 ```bash
 git clone https://github.com/kelsonthony/laya-springboot-starter.git
@@ -35,13 +35,13 @@ cd laya-springboot-starter
 ./mvnw clean install
 ```
 
-No macOS com Java instalado pelo Homebrew, se necessário:
+On macOS with a Homebrew-installed JDK, set `JAVA_HOME` if needed:
 
 ```bash
 export JAVA_HOME="$(brew --prefix openjdk@21)/libexec/openjdk.jdk/Contents/Home"
 ```
 
-Adicione à sua aplicação Spring Boot 4:
+Add the dependency to your Spring Boot 4 application:
 
 ```xml
 <dependency>
@@ -51,11 +51,11 @@ Adicione à sua aplicação Spring Boot 4:
 </dependency>
 ```
 
-Sua aplicação fornece `spring-boot-starter-webmvc`. O starter fornece `spring-boot-starter-restclient` e não inicia servidor web por conta própria. Spring Boot 3 e WebFlux não são suportados nesta versão.
+Your application provides `spring-boot-starter-webmvc`. The starter provides `spring-boot-starter-restclient` and does not start a web server by itself. Spring Boot 3 and WebFlux are outside this version's scope.
 
-### 2. Executar o servidor oficial
+### 2. Run the official server
 
-Python 3.10+ em um ambiente virtual separado:
+Use Python 3.10+ in a separate virtual environment:
 
 ```bash
 python3 -m venv .venv
@@ -64,11 +64,11 @@ python -m pip install "laya[serve]"
 LAYA_HOST=127.0.0.1 LAYA_DEVICE=cpu LAYA_PRELOAD=0 laya-serve
 ```
 
-O endereço padrão do starter é `http://localhost:8000`. O primeiro pedido baixa e carrega o checkpoint escolhido; pode demorar mais que os seguintes. Configure um timeout adequado ou faça o preload conforme a [documentação oficial](https://github.com/NandhaKishorM/laya). Para GPU, dispositivos e recursos avançados, siga o projeto oficial.
+The starter defaults to `http://localhost:8000`. The first request downloads and loads the selected checkpoint and can take longer than subsequent requests. Configure an appropriate timeout or preload the model as described in the [official documentation](https://github.com/NandhaKishorM/laya). Follow the official project for GPU, device, and advanced runtime settings.
 
-Autenticação é opcional para o servidor local. Se definir `LAYA_API_KEY` no servidor, configure a mesma chave na aplicação Java. Não use a chave hospedada do TypeSafe Jev como se fosse uma credencial do Laya.
+Authentication is optional for the local server. If you set `LAYA_API_KEY` on the server, configure the same key in your Java application. A hosted TypeSafe Jev API key is not a Laya server credential.
 
-### 3. Injetar o cliente
+### 3. Inject the client
 
 ```java
 import io.github.kelsonthony.laya.LayaClient;
@@ -77,53 +77,53 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class AtendimentoService {
+public class SupportService {
     private final LayaClient laya;
 
-    public AtendimentoService(LayaClient laya) {
+    public SupportService(LayaClient laya) {
         this.laya = laya;
     }
 
-    public String equipe(String mensagem) {
-        var resposta = laya.evaluate(Map.of("message", mensagem), Map.of(
-            "equipe", Question.choice("Qual equipe deve atender?", Map.of(
-                "financeiro", "Pagamentos, cobranças e reembolsos",
-                "suporte", "Problemas técnicos e acesso"))));
-        return resposta.choice("equipe").choice();
+    public String department(String message) {
+        var response = laya.evaluate(Map.of("message", message), Map.of(
+            "department", Question.choice("Which team should handle this?", Map.of(
+                "billing", "Payments, charges, and refunds",
+                "support", "Technical issues and account access"))));
+        return response.choice("department").choice();
     }
 }
 ```
 
-Não precisa de anotação de habilitação nem de component scanning do pacote do starter. A configuração automática se aplica a aplicações servlet, não chama HTTP no startup e recua se você fornecer seu próprio `LayaClient`.
+No enable annotation or starter package component scanning is required. Auto-configuration applies to servlet applications, performs no HTTP calls during startup, and backs off when you provide your own `LayaClient`.
 
-## Três decisões em uma chamada
+## Three decisions in one request
 
 ```java
-var resposta = laya.evaluate("Não consigo receber pagamentos e a loja está parada", Map.of(
-    "urgente", Question.noul("O problema exige atenção urgente?"),
-    "equipe", Question.choice("Qual equipe deve atender?", "financeiro", "integracoes", "suporte"),
-    "gravidade", Question.score("Qual a gravidade?", "Leve", "Moderado", "Operação bloqueada")));
+var response = laya.evaluate("Payments are failing and my store cannot accept orders", Map.of(
+    "urgent", Question.noul("Does this issue need urgent attention?"),
+    "team", Question.choice("Which team should handle this?", "billing", "integrations", "support"),
+    "severity", Question.score("How severe is this issue?", "Minor", "Moderate", "Blocking")));
 
-double urgencia = resposta.noul("urgente").noul();
-String equipe = resposta.choice("equipe").choice();
-double confianca = resposta.choice("equipe").confidence();
-double gravidade = resposta.score("gravidade").score();
+double urgency = response.noul("urgent").noul();
+String team = response.choice("team").choice();
+double confidence = response.choice("team").confidence();
+double severity = response.score("severity").score();
 ```
 
-`answers()` contém todas as respostas. Os acessores por nome verificam o tipo e lançam `IllegalArgumentException` para nome ausente ou tipo errado. `model()` informa o modelo retornado pelo servidor; `routing()` contém os diagnósticos de roteamento, quando presentes. `usage()` expõe `inputTokens()` e `outputTokens()`.
+`answers()` contains all named answers. Named accessors check the answer type and throw `IllegalArgumentException` for a missing name or incorrect type. `model()` reports the model returned by the server; `routing()` contains routing diagnostics when available. `usage()` exposes `inputTokens()` and `outputTokens()`.
 
-As respostas preservam também `answerConfidence()`, `action()`, `abstention()` e `lowConfidence()`, quando enviados pelo Laya. Campos extras desconhecidos são ignorados. Esta versão não oferece parâmetros de abstinência por pedido; os metadados são úteis quando o servidor está configurado para produzi-los.
+Answers also retain `answerConfidence()`, `action()`, `abstention()`, and `lowConfidence()` when supplied by Laya. Unknown additional fields are ignored. This version does not expose per-request abstention settings; these metadata fields are useful when the server is configured to produce them.
 
-O estado e as instruções aceitam valores serializáveis em JSON: texto, records, mapas e listas. Descrições de critérios `choice` e `noul` podem ser nulas. O pedido rejeita estado nulo e níveis nulos em `score` antes da chamada HTTP. As coleções são copiadas superficialmente; mantenha os valores aninhados imutáveis durante a chamada.
+State and instructions accept JSON-serializable values, including text, records, maps, and lists. Choice/noul descriptions may be null. Requests reject null state and null score levels before HTTP. Collections are shallow snapshots; keep nested caller-owned values immutable while a request is in use.
 
-## Configuração
+## Configuration
 
-| Propriedade | Padrão | Função |
+| Property | Default | Purpose |
 | --- | --- | --- |
-| `laya.enabled` | `true` | Ativa a configuração automática |
-| `laya.base-url` | `http://localhost:8000` | Raiz HTTP; não inclua `/v1/systemone` |
-| `laya.api-key` | Ausente; fallback `LAYA_API_KEY` | Bearer token opcional |
-| `laya.model` | Ausente | Delega ao roteador do servidor |
+| `laya.enabled` | `true` | Enable auto-configuration |
+| `laya.base-url` | `http://localhost:8000` | HTTP root; omit `/v1/systemone` |
+| `laya.api-key` | Absent; `LAYA_API_KEY` fallback | Optional bearer token |
+| `laya.model` | Absent | Delegate checkpoint selection to the server |
 
 ```yaml
 laya:
@@ -137,19 +137,19 @@ spring:
       read-timeout: 120s
 ```
 
-Use `LAYA_BASE_URL`, `LAYA_API_KEY`, `LAYA_MODEL` e `LAYA_ENABLED` para configurar pelo ambiente. Uma chave definida explicitamente em `laya.api-key` vence o fallback; uma chave explicitamente vazia desativa a autenticação. Não defina `laya.model` vazio: omita a propriedade para roteamento automático. Os aliases oficiais incluem `english`, `multilingual` e `typed-decisions`; veja a lista atual no Laya.
+Use `LAYA_BASE_URL`, `LAYA_API_KEY`, `LAYA_MODEL`, and `LAYA_ENABLED` for environment-based configuration. An explicitly configured `laya.api-key` wins over the fallback; an explicitly blank key disables authentication. Do not set an empty `laya.model`: omit the property for automatic routing. Official model aliases include `english`, `multilingual`, and `typed-decisions`; consult Laya for its current model list.
 
-Um modelo pode ser escolhido só para uma chamada:
+Override the model for a single request:
 
 ```java
 import io.github.kelsonthony.laya.LayaRequest;
 
-var resposta = laya.evaluate(new LayaRequest(estado, perguntas, "multilingual"));
+var response = laya.evaluate(new LayaRequest(state, questions, "multilingual"));
 ```
 
-O starter clona o `RestClient.Builder` do Spring Boot, preservando conversores, interceptadores, transporte e observabilidade. Os timeouts acima valem para os clientes HTTP configurados pelo Boot. Para ajustes compartilhados, use `RestClientCustomizer`; para ajustes exclusivos, forneça um bean `LayaClient` com seu próprio `RestClient`.
+The starter clones Spring Boot's `RestClient.Builder`, retaining message converters, interceptors, HTTP transport, and observation configuration. The timeout properties above apply to Boot-configured HTTP clients application-wide. Use `RestClientCustomizer` for shared settings, or provide a `LayaClient` bean with your own `RestClient` for client-specific settings.
 
-Com Java 21+, sua aplicação pode ativar virtual threads:
+On Java 21+, your application can enable virtual threads:
 
 ```yaml
 spring:
@@ -158,18 +158,18 @@ spring:
       enabled: true
 ```
 
-As chamadas continuam síncronas na thread do chamador. O starter não altera o threading da aplicação. Consulte [virtual threads no Spring Boot](https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.virtual-threads).
+Calls remain synchronous on the caller's thread. The starter does not change application-wide threading settings. See [Spring Boot virtual threads](https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.virtual-threads).
 
-## Erros
+## Errors
 
-- Falhas HTTP propagam `RestClientResponseException`, preservando status, corpo e cabeçalhos como `Retry-After`.
-- Falhas de conexão propagam `ResourceAccessException`.
-- Respostas vazias, malformadas, com nomes/tipos incompatíveis ou números ausentes geram `RestClientException`. Valores ausentes não viram zero.
-- Cada avaliação faz uma tentativa; não há retry automático.
+- HTTP failures propagate `RestClientResponseException`, preserving status, body, and headers such as `Retry-After`.
+- Connection failures propagate `ResourceAccessException`.
+- Empty or malformed responses, mismatched names/types, and missing required numbers raise `RestClientException`. Missing values never silently become zero.
+- Each evaluation makes one attempt; there is no automatic retry policy.
 
-O aplicativo decide a recuperação apropriada. Erros de inferência no exemplo não são convertidos em decisões inventadas.
+Your application decides how to recover. The example does not convert inference errors into fabricated decisions.
 
-## Exemplo local e testes
+## Local example and tests
 
 ```bash
 ./mvnw clean install
@@ -177,7 +177,7 @@ O aplicativo decide a recuperação apropriada. Erros de inferência no exemplo 
 ./mvnw -f examples/support-triage/pom.xml spring-boot:run
 ```
 
-Com `laya-serve` ativo em outro terminal:
+With `laya-serve` running in another terminal:
 
 ```bash
 curl -sS http://127.0.0.1:8080/triage \
@@ -185,22 +185,22 @@ curl -sS http://127.0.0.1:8080/triage \
   -d '{"message":"Fui cobrado duas vezes e preciso de um reembolso."}'
 ```
 
-O retorno contém `department`, `confidence`, `urgency`, `severity` e `model`. Mensagem vazia ou ausente retorna HTTP 400. As pontuações são produzidas pelo modelo e variam; o exemplo não exige um valor de confiança fixo.
+The sample ticket is Portuguese and means "I was charged twice and need a refund." The example's questions and department labels are also Portuguese to demonstrate multilingual inference. The response contains `department`, `confidence`, `urgency`, `severity`, and `model`; this ticket is expected to select `financeiro` (billing). Empty or missing messages return HTTP 400. Scores come from the model and can vary; the example does not require a fixed confidence value.
 
 ```bash
 python3 scripts/smoke.py --laya-url http://localhost:8000 --app-url http://127.0.0.1:8080
 ```
 
-O smoke valida a API oficial, os três tipos de decisão via aplicação Java e uma mensagem inválida. Não substitua o servidor por um mock ao relatar um teste de inferência real. Os testes Maven usam HTTP simulado para serem determinísticos e não baixam modelos. A CI verifica Java 17/21/25 e Spring Boot 4.0.0/4.0.8/4.1.1, incluindo o build do exemplo.
+The smoke checks the official API, all three decision types through the Java application, and an invalid ticket. Use the real server when reporting an inference test. Maven tests use deterministic HTTP mocks and do not download models. CI verifies Java 17/21/25 and Spring Boot 4.0.0/4.0.8/4.1.1, including the example build. See [local verification evidence](docs/verification.md).
 
-## Créditos e referências
+## Credits and references
 
-- **[NandhaKishorM/laya](https://github.com/NandhaKishorM/laya)**: projeto oficial, modelos, servidor e contrato HTTP. Veja também o [modelo no Hugging Face](https://huggingface.co/convaiinnovations/laya) e o [Java oficial](https://github.com/NandhaKishorM/laya/tree/main/laya-java), que possui uma proposta própria de runtime/cliente.
-- **[danvega/jev-spring-boot-starter](https://github.com/danvega/jev-spring-boot-starter)**: inspiração para a experiência de integração com Spring MVC e `RestClient`. O código do starter Jev não foi copiado; no momento da referência, o repositório não declarava licença.
-- **[Apache Maven Wrapper](https://github.com/apache/maven-wrapper)**: scripts de build sob Apache-2.0, com os avisos originais preservados.
+- **[NandhaKishorM/laya](https://github.com/NandhaKishorM/laya)**: the official project, models, server, and HTTP contract. See the [Hugging Face model](https://huggingface.co/convaiinnovations/laya) and the [official Java project](https://github.com/NandhaKishorM/laya/tree/main/laya-java), which provides its own runtime/client approach.
+- **[danvega/jev-spring-boot-starter](https://github.com/danvega/jev-spring-boot-starter)**: inspiration for the Spring MVC and `RestClient` integration experience. No Jev starter code was copied; the repository did not declare a license at the referenced revision.
+- **[Apache Maven Wrapper](https://github.com/apache/maven-wrapper)**: build scripts licensed under Apache-2.0, with their original notices retained.
 
-Referências conferidas nos commits Laya [`3cf26cb`](https://github.com/NandhaKishorM/laya/commit/3cf26cbcb18725dbc2d127bb8bb2c4c43243ae63) e Jev [`1f5d3d7`](https://github.com/danvega/jev-spring-boot-starter/commit/1f5d3d7bb7238c7d84703762b06ce72282cebfc9).
+References checked at Laya commit [`3cf26cb`](https://github.com/NandhaKishorM/laya/commit/3cf26cbcb18725dbc2d127bb8bb2c4c43243ae63) and Jev commit [`1f5d3d7`](https://github.com/danvega/jev-spring-boot-starter/commit/1f5d3d7bb7238c7d84703762b06ce72282cebfc9).
 
-## Licença
+## License
 
-[Apache License 2.0](LICENSE). Copyright 2026 Kelson Anthony. Contribuições da comunidade são bem-vindas.
+[Apache License 2.0](LICENSE). Copyright 2026 Kelson Anthony. Community contributions are welcome.
