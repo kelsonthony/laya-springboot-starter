@@ -33,8 +33,8 @@ Acceptance Criteria:
 | --- | --- | --- |
 | LAYA-1 | Typed evaluation and input validation | verified |
 | LAYA-2 | Response validation and HTTP failures | verified |
-| LAYA-3 | Defaults, auth and startup | pending |
-| LAYA-4 | Backoff and Boot customization | pending |
+| LAYA-3 | Defaults, auth and startup | verified |
+| LAYA-4 | Backoff and Boot customization | verified |
 | LAYA-5 | Working triage example | pending |
 | LAYA-6 | Community documentation and build | pending |
 
