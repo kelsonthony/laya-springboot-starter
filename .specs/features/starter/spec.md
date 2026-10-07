@@ -35,8 +35,8 @@ Acceptance Criteria:
 | LAYA-2 | Response validation and HTTP failures | verified |
 | LAYA-3 | Defaults, auth and startup | verified |
 | LAYA-4 | Backoff and Boot customization | verified |
-| LAYA-5 | Working triage example | pending |
-| LAYA-6 | Community documentation and build | pending |
+| LAYA-5 | Working triage example | verified |
+| LAYA-6 | Community documentation and build | verified |
 
 ## Execution Plan
 1. Typed HTTP client: pom.xml, Maven wrapper, src/main/java/io/github/kelsonthony/laya/{Question,Answer,LayaRequest,LayaResponse,LayaClient}.java and client tests. Gate: ./mvnw verify. Commit: feat(client): adiciona cliente tipado para a API oficial do Laya.

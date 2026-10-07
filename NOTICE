@@ -1,0 +1,14 @@
+Laya Spring Boot Starter
+Copyright 2026 Kelson Anthony
+
+Independent community project inspired by Dan Vega's Jev Spring Boot Starter:
+https://github.com/danvega/jev-spring-boot-starter
+No Jev starter source code is included.
+
+Integrates with the official Laya project, by Convai Innovations and contributors:
+https://github.com/NandhaKishorM/laya
+Laya models and runtime are not distributed with this starter.
+
+Maven Wrapper scripts originate from Apache Maven Wrapper 3.3.4,
+Copyright The Apache Software Foundation, licensed under Apache License 2.0.
+Original notices are preserved in mvnw and mvnw.cmd.

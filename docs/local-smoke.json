@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "official_response": {
+    "model": "laya-rl-agent",
+    "answers": {
+      "department": {
+        "type": "choice",
+        "choice": "financeiro",
+        "probabilities": {
+          "financeiro": 0.9999,
+          "suporte": 0.0001
+        },
+        "confidence": 0.9988,
+        "answer_confidence": 0.9999,
+        "action": {
+          "act_probability": 1.0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 46,
+      "output_tokens": 0,
+      "state_tokens": 17,
+      "state_tokens_dropped": 0,
+      "truncated": false,
+      "truncated_questions": []
+    },
+    "routing": {
+      "model": "multilingual",
+      "repo": "convaiinnovations/laya/multilingual",
+      "reason": "explicit model='multilingual'",
+      "detection": null,
+      "workflow": null
+    }
+  },
+  "java_triage": {
+    "department": "financeiro",
+    "confidence": 0.9976,
+    "urgency": 0.1767,
+    "severity": 1.475,
+    "model": "laya-rl-agent"
+  }
+}

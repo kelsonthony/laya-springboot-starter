@@ -1,0 +1,12 @@
+server:
+  address: 127.0.0.1
+  port: 8080
+spring:
+  threads:
+    virtual:
+      enabled: true
+  http:
+    clients:
+      connect-timeout: 5s
+      read-timeout: 120s
+# Override with LAYA_BASE_URL, LAYA_API_KEY and LAYA_MODEL as needed.

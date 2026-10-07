@@ -33,3 +33,15 @@ Every context test maps to LAYA-3 or LAYA-4; one mock expectation forbids accide
 
 ## T2a: Preserve official null routing diagnostics, complete
 Local real-inference smoke found routing.workflow and routing.detection legitimately null. Preserve null metadata in an unmodifiable shallow snapshot. Gate: starter install and example verify, 33 + 3 tests passed. LAYA-2 regression assertion: src/test/java/io/github/kelsonthony/laya/LayaClientTests.java:113 containsEntry("workflow", null).
+
+## T3: Community example, docs and CI, complete
+Gate: ./mvnw install (33 tests), ./mvnw -f examples/support-triage/pom.xml clean verify (3 tests), Python smoke with the official server (PASS). Zero test failures or skips.
+
+| Requirement | Evidence | Outcome |
+| --- | --- | --- |
+| LAYA-5 MVC result | examples/support-triage/src/test/java/io/github/kelsonthony/laya/example/TriageApplicationTests.java:39 jsonPath("$.department").value("financeiro") | All five fields asserted, upstream request state/types checked |
+| LAYA-5 invalid ticket | examples/support-triage/src/test/java/io/github/kelsonthony/laya/example/TriageApplicationTests.java:47 status().isBadRequest() | Missing or empty message returns 400 before HTTP |
+| LAYA-5 real inference | scripts/smoke.py:47 triage["department"] == "financeiro" | Official model and packaged Java application return financeiro; values within protocol ranges |
+| LAYA-6 docs/build | README.md:1; README.en.md:1; LICENSE:1; .github/workflows/build.yml:1 | Two README files, credits, wrapper, Apache license and nine CI combinations |
+
+Tests reverse-map to LAYA-5; documentation review maps to LAYA-6. The source-level tests and real packaged-JAR smoke are separate evidence.
