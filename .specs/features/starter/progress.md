@@ -45,3 +45,6 @@ Gate: ./mvnw install (33 tests), ./mvnw -f examples/support-triage/pom.xml clean
 | LAYA-6 docs/build | README.md:1; README.en.md:1; LICENSE:1; .github/workflows/build.yml:1 | Two README files, credits, wrapper, Apache license and nine CI combinations |
 
 Tests reverse-map to LAYA-5; documentation review maps to LAYA-6. The source-level tests and real packaged-JAR smoke are separate evidence.
+
+## T4: Custom converter evidence, complete
+Gate: starter clean install and example clean verify, 36 + 3 tests passed, zero failures/skips. LAYA-4 assertion src/test/java/io/github/kelsonthony/laya/autoconfigure/LayaAutoConfigurationTests.java:53 returns noul .8 from application/x-laya-test via the retained custom converter.

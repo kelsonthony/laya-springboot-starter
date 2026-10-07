@@ -2,6 +2,8 @@ package io.github.kelsonthony.laya.autoconfigure;
 
 import io.github.kelsonthony.laya.*;
 import java.util.Map;
+import java.util.List;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -37,6 +39,17 @@ class LayaAutoConfigurationTests {
                 .andExpect(jsonPath("$.model").doesNotExist())
                 .andRespond(withSuccess(RESPONSE, MediaType.APPLICATION_JSON));
             assertThat(context.getBean(LayaClient.class).evaluate("hello", Map.of("ok", Question.noul("ok?")))
+                .noul("ok").noul()).isEqualTo(0.8);
+            server.verify();
+        });
+    }
+
+    @Test void retainsCustomMessageConverter() {
+        runner.withUserConfiguration(ConverterConfiguration.class).run(context -> {
+            var server = context.getBean(MockRestServiceServer.class);
+            server.expect(requestTo("http://localhost:8000/v1/systemone"))
+                .andRespond(withSuccess(RESPONSE, MediaType.valueOf("application/x-laya-test")));
+            assertThat(context.getBean(LayaClient.class).evaluate("text", Map.of("ok", Question.noul("ok?")))
                 .noul("ok").noul()).isEqualTo(0.8);
             server.verify();
         });
@@ -116,6 +129,18 @@ class LayaAutoConfigurationTests {
     @Configuration(proxyBeanMethods = false)
     static class CustomClient {
         @Bean LayaClient custom() { return new LayaClient(RestClient.builder().build()); }
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    static class ConverterConfiguration {
+        private final RestClient.Builder builder = RestClient.builder().messageConverters(converters -> {
+            var converter = new JacksonJsonHttpMessageConverter();
+            converter.setSupportedMediaTypes(List.of(MediaType.valueOf("application/x-laya-test")));
+            converters.add(0, converter);
+        });
+        private final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
+        @Bean RestClient.Builder restClientBuilder() { return builder; }
+        @Bean MockRestServiceServer mockServer() { return server; }
     }
 
     @Configuration(proxyBeanMethods = false)
