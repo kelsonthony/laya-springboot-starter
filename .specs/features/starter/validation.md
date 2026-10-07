@@ -102,6 +102,17 @@ LAYA-1 through LAYA-6: independently verified. Spec already marks them verified;
 
 **Overall**: Ready. Six of six ACs matched. Both build gates passed with 39 tests and no skips. Three of three mutants killed. Official local inference smoke passed. Public GitHub creation/push and remote CI confirmation remain the orchestrator's delivery steps.
 
+## Independent follow-up: English primary guide and CI actions
+
+**Date**: 2026-10-07. **Result**: PASS. Reviewed documentation/CI commits `7f2f308` and `7fdd7cc` against the user's updated AC6. This follow-up supersedes the original AC6 row's Portuguese-primary wording.
+
+- README.md:6 and :12 contain English introductory prose and both official Laya/Jev references. README.md:28-35 gives the correct local SNAPSHOT install sequence and explicitly says it is not published to Maven Central. Dependency coordinates, configuration keys, typed API snippets, and smoke commands still match the previously verified implementation.
+- README.md:10 links the Portuguese translation; README.pt-BR.md:10 links back to the English guide. README.en.md:79 links both complete guides. A Python check extracted relative Markdown links from all three files and asserted each target exists; all passed.
+- README.md:188 explains why the sample ticket/questions remain Portuguese. README.md:194 retains the separation between mocked Maven tests and official inference. README.md:198-202 preserves upstream credits and exact revision references; :206 retains Apache-2.0.
+- .github/workflows/build.yml:16-17 uses official `actions/checkout@v7.0.1` and `actions/setup-java@v6.0.1`. The verifier independently fetched both versioned official action.yml files and asserted their runtime is node24. Matrix values, Maven gates, read-only workflow permissions, and Temurin configuration are unchanged.
+
+No Java production sources or tests changed in this follow-up. Prior Maven and mutation evidence remains applicable; no redundant rerun was needed. Final nine remote CI jobs are the parent's remaining verification step. No new gaps or lesson signals were found.
+
 ## Delivery check by the author
 
 The final packaged JAR was restarted after all changes; the exact documented smoke command passed again on 2026-10-07. Department financeiro, confidence 1.0, urgency .1767, severity 1.475, model laya-rl-agent. This additional check does not replace the independent review above. Both resolved findings were recorded as project-local candidate lessons through the skill's lessons script.
