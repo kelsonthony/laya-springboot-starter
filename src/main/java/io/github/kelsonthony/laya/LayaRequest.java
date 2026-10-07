@@ -11,10 +11,13 @@ public record LayaRequest(Object state, Map<String, Question> questions, String 
     }
 
     public LayaRequest {
+        if (state == null) throw new IllegalArgumentException("State must not be null");
         if (questions == null || questions.isEmpty()) throw new IllegalArgumentException("Questions are required");
         questions.forEach((name, question) -> {
             if (name == null || name.isBlank() || question == null)
                 throw new IllegalArgumentException("Questions require nonblank names and nonnull values");
+            if ("score".equals(question.type()) && ((java.util.List<?>) question.criteria()).contains(null))
+                throw new IllegalArgumentException("Score levels must not be null");
         });
         if (model != null && model.isBlank()) throw new IllegalArgumentException("Model must not be blank");
         questions = Map.copyOf(questions);

@@ -20,6 +20,17 @@ class QuestionTests {
         assertThat((Map<?, ?>) Question.noul("Urgent?", null, "can wait").criteria()).hasSize(2);
     }
 
+    @Test void requestRejectsNullScoreLevelsBeforeHttp() {
+        var question = Question.score("Severity?", Arrays.asList("minor", null));
+        assertThatThrownBy(() -> new LayaRequest("text", Map.of("severity", question)))
+            .isInstanceOf(IllegalArgumentException.class).hasMessage("Score levels must not be null");
+    }
+
+    @Test void requestRejectsNullStateBeforeHttp() {
+        assertThatThrownBy(() -> new LayaRequest(null, Map.of("ok", Question.noul("?"))))
+            .isInstanceOf(IllegalArgumentException.class).hasMessage("State must not be null");
+    }
+
     @Test void rejectsInvalidQuestionAndRequestInputsBeforeHttp() {
         assertThatThrownBy(() -> Question.choice("Team?", "a", "a")).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> Question.choice("Team?", " ")).isInstanceOf(IllegalArgumentException.class);

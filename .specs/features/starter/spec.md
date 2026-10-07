@@ -21,7 +21,7 @@ Open questions: none. User authorized local creation, tests and public GitHub pu
 As a Spring developer I can inject a typed LayaClient and evaluate named decisions against my own Laya server.
 
 Acceptance Criteria:
-1. When evaluate receives valid named choice, score and noul questions, the client SHALL POST state, questions and optional model to /v1/systemone and return their exact typed values, model and usage. Null criteria descriptions SHALL be preserved; invalid/empty questions SHALL be rejected before HTTP.
+1. When evaluate receives valid named choice, score and noul questions, the client SHALL POST state, questions and optional model to /v1/systemone and return their exact typed values, model and usage. Null choice/noul criteria descriptions SHALL be preserved; invalid/empty questions, null score levels and null state SHALL be rejected before HTTP.
 2. When the server sends malformed answers, missing numbers, wrong names or wrong types, the client SHALL raise RestClientException; unknown extension fields SHALL be tolerated and routing metadata SHALL remain accessible. HTTP 401, 422, 429 and 500 SHALL preserve their status and Retry-After without retrying.
 3. When a servlet application starts, the starter SHALL provide one LayaClient without HTTP calls, use localhost:8000 and omit model and Authorization by default. A configured key SHALL produce Bearer authentication; explicit blank key SHALL disable it. Explicit key SHALL override LAYA_API_KEY. Invalid URLs or blank model SHALL fail startup.
 4. When laya.enabled=false, a custom LayaClient exists, or the context is not servlet, the starter SHALL back off. The starter SHALL retain the Boot builder's interceptors and message converters.

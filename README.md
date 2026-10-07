@@ -114,7 +114,7 @@ double gravidade = resposta.score("gravidade").score();
 
 As respostas preservam também `answerConfidence()`, `action()`, `abstention()` e `lowConfidence()`, quando enviados pelo Laya. Campos extras desconhecidos são ignorados. Esta versão não oferece parâmetros de abstinência por pedido; os metadados são úteis quando o servidor está configurado para produzi-los.
 
-O estado e as instruções aceitam valores serializáveis em JSON: texto, records, mapas e listas. Critérios podem ter descrições nulas. As coleções são copiadas superficialmente; mantenha os valores aninhados imutáveis durante a chamada.
+O estado e as instruções aceitam valores serializáveis em JSON: texto, records, mapas e listas. Descrições de critérios `choice` e `noul` podem ser nulas. O pedido rejeita estado nulo e níveis nulos em `score` antes da chamada HTTP. As coleções são copiadas superficialmente; mantenha os valores aninhados imutáveis durante a chamada.
 
 ## Configuração
 

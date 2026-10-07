@@ -48,3 +48,6 @@ Tests reverse-map to LAYA-5; documentation review maps to LAYA-6. The source-lev
 
 ## T4: Custom converter evidence, complete
 Gate: starter clean install and example clean verify, 36 + 3 tests passed, zero failures/skips. LAYA-4 assertion src/test/java/io/github/kelsonthony/laya/autoconfigure/LayaAutoConfigurationTests.java:53 returns noul .8 from application/x-laya-test via the retained custom converter.
+
+## T5: Official request semantics, complete
+Upstream serve.py rejects null state (400) and null score levels (422). LayaRequest now rejects both before HTTP. LAYA-1 assertions src/test/java/io/github/kelsonthony/laya/QuestionTests.java:26 and :31 assert exact exceptions; unchanged factory tests prove only shallow snapshot preservation, not valid HTTP evaluation. Gate: starter clean install and example clean verify, 36 + 3 tests passed, zero failures/skips. README null-description guidance narrowed to choice/noul.

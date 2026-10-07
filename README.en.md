@@ -39,7 +39,7 @@ double urgency = result.noul("urgent").noul();
 double severity = result.score("severity").score();
 ```
 
-Import `io.github.kelsonthony.laya.Question` and `java.util.Map`. `choice` returns a label and probabilities; `noul` returns probability of yes; `score` is a weighted zero-based level index. `confidence()` for choice/score is Laya's entropy-based measure; `answerConfidence()` exposes the optional calibrated probability. The application chooses its thresholds.
+Import `io.github.kelsonthony.laya.Question` and `java.util.Map`. `choice` returns a label and probabilities; `noul` returns probability of yes; `score` is a weighted zero-based level index. `confidence()` for choice/score is Laya's entropy-based measure; `answerConfidence()` exposes the optional calibrated probability. The application chooses its thresholds. Choice/noul descriptions may be null; requests reject null state and null score levels before HTTP.
 
 ## Configure
 

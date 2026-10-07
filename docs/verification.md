@@ -2,7 +2,7 @@
 
 PASS on 2026-10-07, macOS ARM64, OpenJDK 21.0.12.1, Spring Boot 4.0.8.
 
-- Starter: 33 tests passed, zero failures/errors/skips.
+- Starter: 36 tests passed, zero failures/errors/skips.
 - MVC example: 3 tests passed, zero failures/errors/skips; executable JAR built.
 - Official Laya source at 3cf26cbcb18725dbc2d127bb8bb2c4c43243ae63, version 0.4.0, Python 3.12, torch 2.14.1, CPU, four inference threads.
 - Real multilingual checkpoint downloaded from the official model repository.
