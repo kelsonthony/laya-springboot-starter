@@ -3,6 +3,8 @@ package io.github.kelsonthony.laya;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 
 /** Named decisions, server-selected model, token usage and optional routing diagnostics. */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,7 +13,7 @@ public record LayaResponse(String model, Map<String, Answer> answers, Usage usag
         if (model == null || model.isBlank() || answers == null || answers.isEmpty() || usage == null)
             throw new IllegalArgumentException("Response requires model, answers and usage");
         answers = Map.copyOf(answers);
-        if (routing != null) routing = Map.copyOf(routing);
+        if (routing != null) routing = Collections.unmodifiableMap(new LinkedHashMap<>(routing));
     }
 
     public Answer choice(String name) { return require(name, "choice"); }

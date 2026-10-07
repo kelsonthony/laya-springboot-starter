@@ -30,3 +30,6 @@ Gate: ./mvnw verify, Java 21, 32 tests passed, zero failed or skipped.
 | LAYA-4 customization | src/test/java/io/github/kelsonthony/laya/autoconfigure/LayaAutoConfigurationTests.java:39 header | X-Community interceptor retained, JSON protocol verified |
 
 Every context test maps to LAYA-3 or LAYA-4; one mock expectation forbids accidental startup HTTP.
+
+## T2a: Preserve official null routing diagnostics, complete
+Local real-inference smoke found routing.workflow and routing.detection legitimately null. Preserve null metadata in an unmodifiable shallow snapshot. Gate: starter install and example verify, 33 + 3 tests passed. LAYA-2 regression assertion: src/test/java/io/github/kelsonthony/laya/LayaClientTests.java:113 containsEntry("workflow", null).

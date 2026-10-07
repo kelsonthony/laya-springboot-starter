@@ -103,6 +103,17 @@ class LayaClientTests {
         server.verify();
     }
 
+    @Test void preservesNullRoutingDiagnosticsFromOfficialServer() {
+        String body = noulResponse().replace("\"usage\":", "\"routing\":{\"model\":\"multilingual\",\"workflow\":null,\"detection\":null},\"usage\":");
+        server.expect(requestTo("http://localhost:8000/v1/systemone"))
+            .andRespond(withSuccess(body, MediaType.APPLICATION_JSON));
+        var result = client.evaluate("texto", Map.of("ok", Question.noul("ok?")));
+        assertThat(result.noul("ok").noul()).isEqualTo(0.8);
+        assertThat(result.routing()).containsEntry("model", "multilingual").containsEntry("workflow", null).containsEntry("detection", null);
+        assertThatThrownBy(() -> result.routing().put("model", "other")).isInstanceOf(UnsupportedOperationException.class);
+        server.verify();
+    }
+
     private static String noulResponse() {
         return "{\"model\":\"laya\",\"answers\":{\"ok\":{\"type\":\"noul\",\"noul\":0.8}},\"usage\":{\"input_tokens\":1,\"output_tokens\":0}}";
     }
