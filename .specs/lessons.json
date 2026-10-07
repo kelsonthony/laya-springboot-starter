@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 3,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "ac_gap::valide a semantica dos pedidos no handler oficial do laya incluindo estado nulo e niveis nulos de score antes de aceitar apenas a serializacao json",
+      "text": "Valide a semântica dos pedidos no handler oficial do Laya, incluindo estado nulo e níveis nulos de score, antes de aceitar apenas a serialização JSON.",
+      "signal": "ac_gap",
+      "scope": "client",
+      "status": "candidate",
+      "features": [
+        "starter"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/starter/validation.md:128 (client)"
+      ],
+      "created": "2026-10-07T20:07:30Z",
+      "last_seen": "2026-10-07T20:07:30Z"
+    },
+    {
+      "id": "L-002",
+      "key": "ac_gap::prove a preservacao de conversores personalizados com um tipo de conteudo que os conversores padrao nao suportam",
+      "text": "Prove a preservação de conversores personalizados com um tipo de conteúdo que os conversores padrão não suportam.",
+      "signal": "ac_gap",
+      "scope": "autoconfigure",
+      "status": "candidate",
+      "features": [
+        "starter"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/starter/validation.md:129 (autoconfigure)"
+      ],
+      "created": "2026-10-07T20:07:30Z",
+      "last_seen": "2026-10-07T20:07:30Z"
+    }
+  ]
+}
